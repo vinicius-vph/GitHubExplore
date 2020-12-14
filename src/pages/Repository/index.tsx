@@ -10,7 +10,7 @@ interface RepositoryParams {
     repository: string;
 }
 
-interface Repository {
+interface RepositoryDTO {
     full_name: string;
     description: string;
     stargazers_count: number;
@@ -33,7 +33,7 @@ interface Issue {
 }
 
 const Repository: React.FC = () => {
-    const [repository, setRepository] = useState<Repository | null>(null);
+    const [repository, setRepository] = useState<RepositoryDTO | null>(null);
     const [issues, setIssues] = useState<Issue[]>([]);
 
     const { params } = useRouteMatch<RepositoryParams>();
