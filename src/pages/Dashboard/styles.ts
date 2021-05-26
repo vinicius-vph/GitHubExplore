@@ -10,7 +10,16 @@ export const Title = styled.h1`
     color: #3A3A3A;
     max-width: 450px;
     line-height: 56px;
-    margin-top: 80px;
+    margin-top: 20px;
+`;
+
+export const Paragraph = styled.p`
+    font-size: 12px;
+    font-style: oblique;
+    color: #005cc5;
+    line-height: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 `;
 
 
@@ -61,17 +70,28 @@ export const Error = styled.span`
     margin-top: 8px;
 `;
 
+export const Main = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 100%
+`;
+
 export const Repositories = styled.div`
-     margin-top: 80px;
-     max-width: 700px;
+    display: flex;
+    align-items: center; 
+    justify-content: left; 
+    margin-top: 20px;
+    max-width: 70%;
 
      a {
+         width: 90%;   
          background: #fff;
          border-radius: 5px;
-         width: 100%;
          padding: 24px;
          display: block;
          text-decoration: none;
+         margin-right: 20px;
 
          display: flex;
          align-items: center;
@@ -79,14 +99,14 @@ export const Repositories = styled.div`
 
          &:hover {
             transform: translateX(10px)
-        }
+            }
         
         & + a {
             margin-top: 16px;
         }
         
             img {
-                width: 64px;
+                width: 12.5%;
                 height: 64px;
                 border-radius: 50px;
             }
@@ -94,6 +114,7 @@ export const Repositories = styled.div`
             div {
                 margin: 0 16px;
                 flex: 1;
+                width: 60%;
 
                 strong {
                     font-size: 20px;
@@ -111,6 +132,11 @@ export const Repositories = styled.div`
             color: #cbcbd6;
         }
         
+        svg :first-child {
+            &:hover {
+                transform: translateX(10px)
+                }
+        }
         
      }
 `;

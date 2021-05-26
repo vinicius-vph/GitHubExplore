@@ -1,13 +1,14 @@
 import React, { useState, FormEvent, useEffect } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
+import { FiChevronRight, FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg';
 
-import { Title, Form, Repositories, Error } from './styles';
+import { Title, Paragraph, Main, Form, Repositories, Error } from './styles';
 
 interface Repository {
+    id: string;
     full_name: string;
     description: string;
     owner: {
@@ -30,8 +31,7 @@ const Dashboard: React.FC = () => {
     });
 
     useEffect(() => {
-        localStorage.setItem('@GithubExplorer:repositories', JSON.stringify(repositories)
-        );
+        localStorage.setItem('@GithubExplorer:repositories', JSON.stringify(repositories));
     }, [repositories]);
 
     async function handleAddRepository(event: FormEvent<HTMLFormElement>): Promise<void> {
@@ -56,36 +56,50 @@ const Dashboard: React.FC = () => {
         }
         
     }
+    // function handleRemoveRepository(event: String): void | undefined {
+    //     console.log(event)
+
+    //     return;
+    // }
+
     return(
         <>
             <img src={logoImg} alt="Github Explorer" />
-            <Title>Explore Repositórios no Github</ Title>
+            <Title>Explore repositórios no Github</ Title>
+            <Paragraph>Mantenha uma lista de repositórios favoritos que serão exibidos <br /> toda vez que você acessar essa página 
+                
+            </Paragraph>
+            <Paragraph>Para uma melhor experiência pesquise no formato perfil/repostório</Paragraph>
 
             <Form hasError={!!inputError} onSubmit={handleAddRepository}>
                 <input
                 value={newRepo}
                 onChange={e => setNewRepo(e.target.value)}
-                placeholder="Digite o nome do repositório"
+                placeholder="Ex. facebook/react, denoland/deno, vuejs/vue"
 
                 />
                 <button type="submit">Pesquisar</button>
             </Form>
             { inputError && <Error>{inputError}</Error>}
-            <Repositories>
+            <Main>
                 {repositories.map(repository => (
-                    <Link key={repository.full_name} to={`/repositories/${repository.full_name}`}>
-                        <img 
-                        src={repository.owner.avatar_url}
-                        alt={repository.owner.login}/>
-                        <div>
-                            <strong>{repository.full_name}</strong>
-                            <p>{repository.description}</p>
-                        </div>
+                 
+                    <Repositories key={repository.id}>
+                        <Link key={repository.full_name} to={`/repositories/${repository.full_name}`}>
+                            <img src={repository.owner.avatar_url} alt={repository.owner.login}/>
+                            <div>
+                                <strong>{repository.full_name}</strong>
+                                <p>{repository.description}</p>
+                            </div>
 
-                        <FiChevronRight size={20}/>
-                    </Link>
+                            <FiChevronRight size={20}/>
+                        </Link>
+                        <FiTrash size={20} style={{color: 'red'}} onClick={() => {alert('Funcionalidade em implementação')}}/>
+                    </Repositories>
+                  
+
                 ))}
-            </Repositories>
+            </Main>
         </>
     );
 
